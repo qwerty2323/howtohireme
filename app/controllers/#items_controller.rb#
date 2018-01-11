@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
   def index
     render json: Item.all
   end
+
   def add_to_cart
     @item = Item.find_by_id(item_params[:id])
     redirect_to controller: 'cart', action: 'add_to_cart', items: @item.to_json

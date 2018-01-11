@@ -17,22 +17,18 @@ RSpec.describe ItemsController, type: :controller do
       Item.all.each(&:destroy)
     end
   end
-=begin
+
   describe "POST #add_to_cart" do
     it 'add item to cart' do
       Item.all.each(&:destroy)
-      session[:cart_id] = 1
-      (0..5).each do |i|
-        @item = Item.new
-        @item.price = 10
-        @item.title = "Best thing ever #{i}"
-        @item.save
-      end
+      @item = Item.new
+      @item.price = 10
+      @item.title = 'Best thing ever'
+      @item.save!
       post :add_to_cart,
-        params: { items: Item.all.to_json }
-      expect(response.body).to eq(Item.all.to_json)
+        params: { items: @item.to_json }
+      expect(response).to redirect_to(cart_add_to_cart_path, params: @item)
+      Item.all.each(&:destroy)
     end
-    Item.all.each(&:destroy)
   end
-=end
 end
